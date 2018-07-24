@@ -13,7 +13,7 @@ public class Main {
         int[] res = new int[23];
         ArrayList<String> chapterString = new ArrayList<>();
         int chapterCount = 0;
-
+        String searchWord = word.toLowerCase();
         String line;
         try (FileInputStream fileInputStream = new FileInputStream(novelFile)) {
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
@@ -26,7 +26,9 @@ public class Main {
                     if (!line.contains("CHAPTER") && !line.contains("** end of file **")){
                         // \\s+ space delimiter
                         //Reading the file line by line
-                        String[] wordList = line.split("\\s+");
+                        String tempLine = line.replaceAll("\\p{Punct}|\\d","");
+
+                        String[] wordList = tempLine.split("\\s+");
                         for(int i = 0; i < wordList.length; i++){
                             //Casting to lower case in order to prevent counting the same words twice
                             chapterString.add(wordList[i].toLowerCase());
@@ -35,20 +37,20 @@ public class Main {
                     else{
                         HashMap<String, Integer> chapterDetail = new HashMap<>();
                         for(int i = 0; i < chapterString.size(); i++){
-                            if(chapterString.get(i).equals(word)){
-                                    if(chapterDetail.containsKey(word)){
-                                        chapterDetail.put(word, chapterDetail.get(word)+1);
+                            if(chapterString.get(i).equalsIgnoreCase(searchWord)){
+                                    if(chapterDetail.containsKey(searchWord)){
+                                        chapterDetail.put(searchWord, chapterDetail.get(searchWord)+1);
                                     }else{
-                                        chapterDetail.put(word, 1);
+                                        chapterDetail.put(searchWord, 1);
                                     }
                                 }
                             }
 
-                        if(chapterDetail.get(word) == null){
+                        if(chapterDetail.get(searchWord) == null){
                             res[chapterCount] = 0;
 
                         }else {
-                            res[chapterCount] = chapterDetail.get(word);
+                            res[chapterCount] = chapterDetail.get(searchWord);
 
                         }
                             chapterCount++;
@@ -189,13 +191,13 @@ public class Main {
 
         System.out.println("\n");
         System.out.println("The word frequency in each chapter is: ");
-        int[] res3 = getFrequencyOfWord(filePath, "bennet");
+        int[] res3 = getFrequencyOfWord(filePath, "Elizabeth");
         for(int i = 0; i < res3.length; i++){
             System.out.print(res3[i] + " ");
         }
         System.out.println("\n");
 
-        System.out.println("The chapter number is: "+getChapterQuoteAppears(filePath, "I am more obliged to you than I can express."));
+        System.out.println("The chapter number is: "+getChapterQuoteAppears(filePath, "I am more obliged to you than I can express"));
 
 
 

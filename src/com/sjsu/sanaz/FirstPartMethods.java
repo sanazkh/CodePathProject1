@@ -18,7 +18,10 @@ public class FirstPartMethods {
             while ((line = bufferedReader.readLine()) != null){
                 if(!line.equals("")){
                     // \\s+ space delimiter
-                    String[] wordList = line.split("\\s+");
+                    String tempLine = line.replaceAll("\\p{Punct}|\\d","");
+
+                    String[] wordList = tempLine.split("\\s+");
+
                     totalNumberOfWords += wordList.length;
                 }
             }
@@ -42,8 +45,8 @@ public class FirstPartMethods {
             while ((line = bufferedReader.readLine()) != null){
                 if(!line.equals("")){
                     // \\s+ space delimiter
-
-                    String[] wordList = line.split("\\s+");
+                    String tempLine = line.replaceAll("\\p{Punct}|\\d","");
+                    String[] wordList = tempLine.split("\\s+");
 
                     for(int i = 0; i < wordList.length; i++){
                         if(!uniqueWords.contains(wordList[i].toLowerCase())){
@@ -74,7 +77,8 @@ public class FirstPartMethods {
             while ((line = bufferedReader.readLine()) != null){
                 if(!line.equals("")){
                     // \\s+ space delimiter
-                    String[] wordList = line.split("\\s+");
+                    String tempLine = line.replaceAll("\\p{Punct}|\\d","");
+                    String[] wordList = tempLine.split("\\s+");
 
                     for(int i = 0; i < wordList.length; i++){
                         if(wordCount.containsKey(wordList[i].toLowerCase())){
@@ -173,7 +177,9 @@ public class FirstPartMethods {
             while ((line = bufferedReader.readLine()) != null){
                 if(!line.equals("")){
                     // \\s+ space delimiter
-                    String[] wordList = line.split("\\s+");
+                    String tempLine = line.replaceAll("\\p{Punct}|\\d","");
+
+                    String[] wordList = tempLine.split("\\s+");
 
                     for(int i = 0; i < wordList.length; i++){
                         if(!(filterSet.contains(wordList[i].toLowerCase()))){
@@ -217,7 +223,9 @@ public class FirstPartMethods {
             while ((line = bufferedReader.readLine()) != null){
                 if(!line.equals("")){
                     // \\s+ space delimiter
-                    String[] wordList = line.split("\\s+");
+                    String tempLine = line.replaceAll("\\p{Punct}|\\d","");
+
+                    String[] wordList = tempLine.split("\\s+");
 
                     for(int i = 0; i < wordList.length; i++) {
                         if (!wordList[i].matches("-?\\d+(\\.\\d+)?")) {
